@@ -173,7 +173,7 @@ fp_device_constructed (GObject *object)
   priv->scan_type = cls->scan_type;
   priv->features = cls->features;
   priv->device_name = g_strdup (cls->full_name);
-  priv->device_id = g_strdup ("0");
+  priv->device_id = g_strdup ("1");
 
   if (cls->temp_hot_seconds > 0)
     {
