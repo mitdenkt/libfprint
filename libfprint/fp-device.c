@@ -164,6 +164,8 @@ fp_device_constructed (GObject *object)
   FpDevice *self = (FpDevice *) object;
   FpDeviceClass *cls = FP_DEVICE_GET_CLASS (self);
   FpDevicePrivate *priv = fp_device_get_instance_private (self);
+  GError *error = NULL;
+  g_autofree gchar *serial = NULL;
 
   g_assert (cls->features != FP_DEVICE_FEATURE_NONE);
 
@@ -173,7 +175,13 @@ fp_device_constructed (GObject *object)
   priv->scan_type = cls->scan_type;
   priv->features = cls->features;
   priv->device_name = g_strdup (cls->full_name);
-  priv->device_id = g_strdup ("1");
+  //THIS IS SOOOO FRAGILE fixit
+  g_usb_device_open (priv->usb_device, &error);
+  serial = g_usb_device_get_string_descriptor (priv->usb_device,
+                                                   g_usb_device_get_serial_number_index (priv->usb_device),
+                                                   &error);
+  g_usb_device_close (priv->usb_device, NULL);
+  priv->device_id = g_strdup (serial);
 
   if (cls->temp_hot_seconds > 0)
     {
