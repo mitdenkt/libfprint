@@ -242,6 +242,14 @@ capture_read_data_cb (FpiUsbTransfer *transfer, FpDevice *device,
           switch (data[18])
             {
             case 0x0c:
+              /* OUR SPECIAL CASE */
+              fp_dbg ("SPECIAL CASE");
+
+              fpi_ssm_jump_to_state (transfer->ssm,
+                                     CAPTURE_ACK_00_28);
+              break;
+
+            case 0x0c:
               /* no finger */
               fpi_ssm_jump_to_state (transfer->ssm,
                                      CAPTURE_ACK_00_28);
