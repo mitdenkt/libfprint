@@ -241,7 +241,7 @@ capture_read_data_cb (FpiUsbTransfer *transfer, FpDevice *device,
           fp_dbg ("18th byte is %.2x", data[18]);
           switch (data[18])
             {
-            case 0x0d:
+            case 0x13:
               /* OUR SPECIAL CASE */
               fp_dbg ("SPECIAL CASE");
 
