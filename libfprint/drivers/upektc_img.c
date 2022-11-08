@@ -230,6 +230,7 @@ capture_read_data_cb (FpiUsbTransfer *transfer, FpDevice *device,
         }
     }
   self->response_rest = 0;
+  fp_dbg ("4th byte is %.2x", data[4]);
 
   switch (data[4])
     {
