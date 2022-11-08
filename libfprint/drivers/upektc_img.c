@@ -235,6 +235,7 @@ capture_read_data_cb (FpiUsbTransfer *transfer, FpDevice *device,
   switch (data[4])
     {
     case 0x00:
+      fp_dbg ("7th byte is %.2x", data[7]);
       switch (data[7])
         {
         /* No finger */
